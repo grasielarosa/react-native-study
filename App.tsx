@@ -11,8 +11,8 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme.dark}>
-      <StatusBar backgroundColor='#00011D'/>
+    <ThemeProvider theme={theme}>
+      <StatusBar backgroundColor="#00011D" />
       <Dashboard />
     </ThemeProvider>
   );

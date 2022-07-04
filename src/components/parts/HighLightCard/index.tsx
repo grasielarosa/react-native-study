@@ -10,13 +10,20 @@ import {
   Title,
 } from './styles';
 
+interface Props {
+  type: 'up' | 'down' | 'total';
+  title: string;
+  amount: string;
+  lastTransaction: string;
+}
+
 const icon = {
   up: '%',
   down: '#',
-  total: '$'
-}
+  total: '$',
+};
 
-const HighLightCard = ({amount, title, type, lastTransaction}) => {
+const HighLightCard = ({ amount, title, type, lastTransaction }: Props) => {
   return (
     <Container>
       <Header>

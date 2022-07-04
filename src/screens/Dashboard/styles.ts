@@ -1,16 +1,19 @@
 import React from 'react';
+import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
+import { DataListProps } from '.';
+
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.body};
 `;
 
 export const Header = styled.View`
   width: 100%;
   height: ${RFPercentage(42)}px;
-  background-color: ${({ theme }) => theme.colors.header};
+  background-color: ${({ theme }) => theme.colors.primary};
   justify-content: center;
   align-items: flex-start;
   flex-direction: row;
@@ -27,7 +30,7 @@ export const HighLightCards = styled.ScrollView.attrs({
 `;
 
 export const Icon = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.textPrimary};
   font-size: ${RFValue(18)}px;
   font-weight: bold;
 `;
@@ -44,7 +47,7 @@ export const User = styled.View`
 `;
 
 export const UserGreeting = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.textSecondary};
   font-size: ${RFValue(18)}px;
 `;
 
@@ -54,7 +57,7 @@ export const UserInfo = styled.View`
 `;
 
 export const UserName = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.textSecondary};
   font-size: ${RFValue(18)}px;
   font-weight: bold;
 `;
@@ -66,3 +69,25 @@ export const UserWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const Transactions = styled.View`
+  flex: 1;
+  padding: 0 24px;
+  margin-top: ${RFPercentage(12)}px;
+`;
+
+export const TitleList = styled.Text`
+  font-size: ${RFValue(18)}px;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-weight: bold;
+  margin-bottom: 16px;
+`;
+
+export const TransactionList = styled(
+  FlatList as new () => FlatList<DataListProps>,
+).attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingBottom: 20,
+  },
+})``;
