@@ -5,15 +5,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ThemeProvider } from 'styled-components/native';
 
 import theme from './src/global/styles/theme';
-import { Dashboard } from './src/screens';
+import { Dashboard, Register, CategorySelectScreen } from './src/screens';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar backgroundColor="#00011D" />
-      <Dashboard />
+      <StatusBar backgroundColor="#36344a" />
+      <Register />
     </ThemeProvider>
   );
 };

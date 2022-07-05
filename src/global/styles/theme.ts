@@ -6,7 +6,9 @@ export default {
     textPrimary: '#36344a',
     textSecondary: '#fffacd',
     body: '#F4F1DE',
-    inputValue: '#367e5b',
-    outputValue: '#720614',
+    incomeValue: '#367e5b',
+    incomeLigth: '#b3cec1',
+    outcomeValue: '#720614',
+    outcomeLigth: '#caa1a6',
   },
 };

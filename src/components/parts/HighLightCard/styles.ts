@@ -33,12 +33,12 @@ export const Icon = styled.Text<TypeProps>`
   ${props =>
     props.type === 'up' &&
     css`
-      color: ${({ theme }) => theme.colors.inputValue};
+      color: ${({ theme }) => theme.colors.incomeValue};
     `};
   ${props =>
     props.type === 'down' &&
     css`
-      color: ${({ theme }) => theme.colors.outputValue};
+      color: ${({ theme }) => theme.colors.outcomeValue};
     `};
   ${props =>
     props.type === 'total' &&

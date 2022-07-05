@@ -24,7 +24,7 @@ export const Amount = styled.Text<Props>`
   color: ${({ theme }) => theme.colors.textPrimary};
   margin-top: 2px;
   color: ${({ theme, type }) =>
-    type === 'positive' ? theme.colors.inputValue : theme.colors.outputValue};
+    type === 'positive' ? theme.colors.incomeValue : theme.colors.outcomeValue};
 `;
 
 export const Footer = styled.View`
