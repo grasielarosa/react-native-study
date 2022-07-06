@@ -1,7 +1,9 @@
+import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export const Container = styled.TouchableOpacity.attrs({
+export const Container = styled(RectButton).attrs({
   activeOpacity: 0.7,
 })`
   background-color: ${({ theme }) => theme.colors.complementary};
@@ -16,7 +18,7 @@ export const Category = styled.Text`
   color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
-export const Icon = styled.Text`
-  font-size: ${RFValue(14)}px;
+export const IconStyled = styled(Icon)`
+  font-size: ${RFValue(20)}px;
   color: ${({ theme }) => theme.colors.textPrimary};
 `;

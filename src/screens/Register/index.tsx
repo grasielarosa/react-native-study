@@ -3,6 +3,7 @@ import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import {
   InputForm,

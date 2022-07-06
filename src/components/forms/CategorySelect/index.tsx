@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Category, Icon } from './styles';
+import { Container, Category, IconStyled } from './styles';
 
 interface Props {
   title: string;
@@ -10,7 +10,7 @@ const CategorySelect = ({ title, onPress }: Props) => {
   return (
     <Container onPress={onPress}>
       <Category>{title}</Category>
-      <Icon>v</Icon>
+      <IconStyled name="keyboard-arrow-down" />
     </Container>
   );
 };

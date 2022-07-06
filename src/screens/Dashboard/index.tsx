@@ -1,4 +1,8 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTheme } from 'styled-components/native';
+import { RFValue } from 'react-native-responsive-fontsize';
+
 import { HighLightCard, TransactionCard } from '../../components';
 import { TransactionCardProps } from '../../components/parts/TransactionCard';
 
@@ -6,7 +10,6 @@ import {
   Container,
   Header,
   HighLightCards,
-  Icon,
   Photo,
   User,
   UserGreeting,
@@ -16,12 +19,14 @@ import {
   Transactions,
   TitleList,
   TransactionList,
+  LogoutButton,
 } from './styles';
 
 export interface DataListProps extends TransactionCardProps {
   id: number;
 }
 const Dashboard = () => {
+  const theme = useTheme();
   const data: DataListProps[] = [
     {
       id: 1,
@@ -84,7 +89,13 @@ const Dashboard = () => {
               <UserName>Grasi</UserName>
             </User>
           </UserInfo>
-          <Icon>X</Icon>
+          <LogoutButton>
+            <Icon
+              name="power-settings-new"
+              size={RFValue(18)}
+              color={theme.colors.secondary}
+            />
+          </LogoutButton>
         </UserWrapper>
       </Header>
       <HighLightCards>

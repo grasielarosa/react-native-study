@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/native';
-import { TouchableOpacity } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 interface TypeProps {
@@ -11,12 +11,8 @@ interface ContainerProps {
   type: 'up' | 'down';
 }
 
-export const Container = styled(TouchableOpacity)<ContainerProps>`
+export const Container = styled.View<ContainerProps>`
   width: 48%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
 
@@ -34,6 +30,13 @@ export const Container = styled(TouchableOpacity)<ContainerProps>`
       background-color: ${({ theme }) => theme.colors.outcomeLigth};
       border: none;
     `}
+`;
+
+export const Button = styled(RectButton)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
 `;
 
 export const Icon = styled.Text<ContainerProps>`
