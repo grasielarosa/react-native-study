@@ -5,33 +5,33 @@ import {
   Container,
   Footer,
   Header,
-  Icon,
+  IconStyled,
   LastTransaction,
   Title,
 } from './styles';
 
 interface Props {
-  type: 'up' | 'down' | 'total';
+  type: 'positive' | 'negative' | 'total';
   title: string;
   amount: string;
   lastTransaction: string;
 }
 
 const icon = {
-  up: '%',
-  down: '#',
-  total: '$',
+  positive: 'arrow-up-circle',
+  negative: 'arrow-down-circle',
+  total: 'dollar-sign',
 };
 
 const HighLightCard = ({ amount, title, type, lastTransaction }: Props) => {
   return (
-    <Container>
+    <Container type={type}>
       <Header>
         <Title>{title}</Title>
-        <Icon type={type}>{icon[type]}</Icon>
+        <IconStyled type={type} name={icon[type]} />
       </Header>
       <Footer>
-        <Amount>USD {amount}</Amount>
+        <Amount>{amount}</Amount>
         <LastTransaction>last transaction: {lastTransaction}</LastTransaction>
       </Footer>
     </Container>

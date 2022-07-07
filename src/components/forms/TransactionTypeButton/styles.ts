@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface TypeProps {
   type: 'up' | 'down';
@@ -39,7 +40,7 @@ export const Button = styled(RectButton)`
   padding: 16px;
 `;
 
-export const Icon = styled.Text<ContainerProps>`
+export const IconStyled = styled(Icon)<ContainerProps>`
   font-size: ${RFValue(18)}px;
   margin-right: 12px;
 

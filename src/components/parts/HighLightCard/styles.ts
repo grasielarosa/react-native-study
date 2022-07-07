@@ -1,9 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface TypeProps {
-  type: 'up' | 'down' | 'total';
+  type: 'positive' | 'negative' | 'total';
 }
 export const Amount = styled.Text`
   color: ${({ theme }) => theme.colors.textPrimary};
@@ -11,8 +12,18 @@ export const Amount = styled.Text`
   margin-top: 38px;
 `;
 
-export const Container = styled.View`
-  background-color: ${({ theme }) => theme.colors.complementary};
+export const Container = styled.View<TypeProps>`
+  ${props =>
+    props.type !== 'total' &&
+    css`
+      background-color: ${({ theme }) => theme.colors.complementary};
+    `};
+  ${props =>
+    props.type === 'total' &&
+    css`
+      background-color: ${({ theme }) => theme.colors.secondary};
+    `};
+
   width: ${RFValue(300)}px;
   border-radius: 5px;
   padding: 19px 23px;
@@ -27,16 +38,16 @@ export const Header = styled.View`
   justify-content: space-between;
 `;
 
-export const Icon = styled.Text<TypeProps>`
+export const IconStyled = styled(Icon)<TypeProps>`
   font-size: ${RFValue(40)}px;
 
   ${props =>
-    props.type === 'up' &&
+    props.type === 'positive' &&
     css`
       color: ${({ theme }) => theme.colors.incomeValue};
     `};
   ${props =>
-    props.type === 'down' &&
+    props.type === 'negative' &&
     css`
       color: ${({ theme }) => theme.colors.outcomeValue};
     `};

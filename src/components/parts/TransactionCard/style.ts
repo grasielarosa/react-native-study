@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface Props {
   type: 'positive' | 'negative';
@@ -34,13 +35,13 @@ export const Footer = styled.View`
   margin-top: 19px;
 `;
 
-export const Category = styled.Text`
+export const Category = styled.View`
   flex-direction: row;
   align-items: center;
   flex: 1;
 `;
 
-export const Icon = styled.Text`
+export const IconStyled = styled(Icon)`
   font-size: ${RFValue(20)}px;
   color: ${({ theme }) => theme.colors.primary};
 `;
@@ -48,7 +49,7 @@ export const Icon = styled.Text`
 export const CategoryName = styled.Text`
   font-size: ${RFValue(14)}px;
   color: ${({ theme }) => theme.colors.primary};
-  margin-left: 17px;
+  margin-left: 10px;
 `;
 
 export const Date = styled.Text`

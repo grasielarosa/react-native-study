@@ -1,4 +1,6 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
 import { StatusBar } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';

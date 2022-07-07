@@ -5,8 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-import { CategorySelectScreen, Dashboard, Register } from '../screens';
+import { Dashboard, Register } from '../screens';
 import { Platform } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const AppRoutes = () => {
   const theme = useTheme();
@@ -14,12 +15,14 @@ const AppRoutes = () => {
     <Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: 'red',
-        tabBarInactiveTintColor: 'purple',
+        tabBarActiveTintColor: theme.colors.secondary,
+        tabBarInactiveTintColor: theme.colors.primary,
         tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
-          height: 88,
+          height: RFValue(70),
           paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+          backgroundColor: theme.colors.body,
+          borderTopColor: 'none',
         },
       }}>
       <Screen

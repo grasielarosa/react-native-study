@@ -80,11 +80,15 @@ export const TitleList = styled.Text`
   margin-bottom: 16px;
 `;
 
-export const TransactionList = styled(
-  FlatList as new () => FlatList<DataListProps>,
-).attrs({
+export const TransactionList = styled(FlatList).attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     paddingBottom: 20,
   },
-})``;
+})`` as React.ComponentType as new <DataListProps>() => FlatList<DataListProps>;
+
+export const LoadContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
