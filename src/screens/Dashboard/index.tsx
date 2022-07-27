@@ -31,6 +31,7 @@ export interface DataListProps extends TransactionCardProps {
 }
 interface HighLightProps {
   amount: string;
+  lastTransaction: string;
 }
 interface HighLightValues {
   totalInflows: HighLightProps;
@@ -49,6 +50,28 @@ const Dashboard = () => {
     // await AsyncStorage.removeItem(dataKey);
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
+
+    const getLastTransactionDate = (
+      collection: DataListProps[],
+      type: 'positive' | 'negative',
+    ) => {
+      const lastTransactionAdded = new Date(
+        Math.max.apply(
+          Math,
+          collection
+            .filter(transaction => transaction.type === type)
+            .map((transaction: DataListProps) =>
+              new Date(transaction.date).getTime(),
+            ),
+        ),
+      );
+
+      return Intl.DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+      }).format(new Date(lastTransactionAdded));
+    };
 
     let inflows = 0;
     let outflows = 0;
@@ -84,7 +107,8 @@ const Dashboard = () => {
     );
 
     setData(transactionsFormatted);
-    // const lastTransactionAdded = data.filter(item => data.type === 'positive');
+    // const lastInflowsAdded = getLastTransactionDate(transactions, 'positive');
+    // const lastOutflowsAdded = getLastTransactionDate(transactions, 'negative');
 
     const total = inflows - outflows;
     setHighLightValues({
@@ -93,18 +117,21 @@ const Dashboard = () => {
           style: 'currency',
           currency: 'BRL',
         }),
+        lastTransaction: '',
       },
       totalOutflows: {
         amount: outflows.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
+        lastTransaction: '',
       },
       total: {
         amount: total.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
+        lastTransaction: '',
       },
     });
     setisLoading(false);
@@ -160,13 +187,13 @@ const Dashboard = () => {
             <HighLightCard
               title={'Entradas'}
               amount={highLightValues.totalInflows.amount}
-              lastTransaction={'april, 4'}
+              lastTransaction={highLightValues.totalInflows.lastTransaction}
               type="positive"
             />
             <HighLightCard
               title={'Saídas'}
               amount={highLightValues.totalOutflows.amount}
-              lastTransaction={'may, 7'}
+              lastTransaction={highLightValues.totalOutflows.lastTransaction}
               type="negative"
             />
           </HighLightCards>

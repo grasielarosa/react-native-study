@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-import { Dashboard, Register } from '../screens';
+import { Dashboard, Register, Report } from '../screens';
 import { Platform } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
@@ -44,8 +44,8 @@ const AppRoutes = () => {
         }}
       />
       <Screen
-        name="Categories"
-        component={Register}
+        name="Relatórios"
+        component={Report}
         options={{
           tabBarIcon: ({ size, color }) => (
             <Icon name="pie-chart" size={size} color={color} />

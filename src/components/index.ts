@@ -1,4 +1,4 @@
-export { HighLightCard, TransactionCard } from './parts';
+export { HighLightCard, TransactionCard, HistoryCard } from './parts';
 export {
   Input,
   Button,
