@@ -13,7 +13,7 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
-        <StatusBar backgroundColor="#36344a" />
+        <StatusBar backgroundColor="#36344a" barStyle="light-content" />
 
         <NavigationContainer>
           <AppRoutes />
