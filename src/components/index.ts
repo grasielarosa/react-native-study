@@ -1,4 +1,9 @@
-export { HighLightCard, TransactionCard, HistoryCard } from './parts';
+export {
+  HighLightCard,
+  TransactionCard,
+  HistoryCard,
+  SignInSocialButton,
+} from './parts';
 export {
   Input,
   Button,

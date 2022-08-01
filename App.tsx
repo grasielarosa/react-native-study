@@ -6,6 +6,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 
+import { AuthProvider } from './src/hooks/auth';
+import { SignIn } from './src/screens';
 import theme from './src/global/styles/theme';
 import { AppRoutes } from './src/routes/app.routes';
 
@@ -16,7 +18,10 @@ const App = () => {
         <StatusBar backgroundColor="#36344a" barStyle="light-content" />
 
         <NavigationContainer>
-          <AppRoutes />
+          <AuthProvider>
+            <SignIn />
+          </AuthProvider>
+          {/* <AppRoutes /> */}
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
