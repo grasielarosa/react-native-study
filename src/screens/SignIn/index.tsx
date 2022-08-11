@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { useAuth } from '../../hooks/auth';
@@ -17,9 +18,17 @@ import Apple from '../../assets/apple.svg';
 import Google from '../../assets/google.svg';
 
 const SignIn = () => {
-  const { user } = useAuth();
+  const { siginGoogle } = useAuth();
 
-  console.log(user);
+  const handleSigninGoogle = async () => {
+    try {
+      siginGoogle().then(() => console.log('funciona'));
+      console.log('oi');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('');
+    }
+  };
 
   return (
     <Container>
@@ -32,7 +41,11 @@ const SignIn = () => {
       </Header>
       <Footer>
         <FooterWrapper>
-          <SignInSocialButton title="Entrar com Google" svg={Google} />
+          <SignInSocialButton
+            title="Entrar com Google"
+            onPress={handleSigninGoogle}
+            svg={Google}
+          />
           <SignInSocialButton title="Entrar com Apple" svg={Apple} />
         </FooterWrapper>
       </Footer>

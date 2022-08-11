@@ -3,26 +3,20 @@ import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import { StatusBar } from 'react-native';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
 import { ThemeProvider } from 'styled-components/native';
 
 import { AuthProvider } from './src/hooks/auth';
-import { SignIn } from './src/screens';
 import theme from './src/global/styles/theme';
-import { AppRoutes } from './src/routes/app.routes';
 
 const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <StatusBar backgroundColor="#36344a" barStyle="light-content" />
-
-        <NavigationContainer>
-          <AuthProvider>
-            <SignIn />
-          </AuthProvider>
-          {/* <AppRoutes /> */}
-        </NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );

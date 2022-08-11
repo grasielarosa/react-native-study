@@ -10,7 +10,7 @@ interface Props extends RectButtonProps {
 }
 
 const SignInSocialButton = ({ title, svg: Svg, ...rest }: Props) => {
-    return (
+  return (
     <Button {...rest}>
       <ImageContainer>
         <Svg />
