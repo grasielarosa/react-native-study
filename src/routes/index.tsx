@@ -6,11 +6,11 @@ import { AppRoutes } from './app.routes';
 import { useAuth } from '../hooks/auth';
 
 export const Routes = () => {
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
 
   return (
     <NavigationContainer>
-      {!user ? <AppRoutes /> : <AuthRoutes />}
+      {userInfo?.id ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 };

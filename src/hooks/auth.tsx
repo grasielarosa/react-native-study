@@ -7,11 +7,10 @@ import React, {
 } from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface AuthProviderProps {
   children: ReactNode;
 }
-
-// faltam as aulas 3, 4 e 5 de autenticação. Async storage de usuário na aula de rotas pub/priv
 interface User {
   id: string;
   name: string;
@@ -23,25 +22,29 @@ interface User {
 interface AuthContextData {
   userInfo: undefined | User;
   siginGoogle(): Promise<FirebaseAuthTypes.UserCredential>;
+  signOut(): Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userInfo, setUserInfo] = useState();
+  const dataKey = '@gofinances:users';
 
   const siginGoogle = async () => {
     try {
       const { idToken, user } = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       if (idToken) {
-        setUserInfo({
+        const userLogged = {
           id: user.id,
           name: user.givenName,
           familyName: user.familyName,
           email: user.email,
           photo: user.photo,
-        });
+        };
+        setUserInfo(userLogged);
+        await AsyncStorage.setItem(dataKey, JSON.stringify(userLogged));
       }
       return auth().signInWithCredential(googleCredential);
     } catch (error: any) {
@@ -49,15 +52,30 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const signOut = async () => {
+    setUserInfo({} as User);
+    await AsyncStorage.removeItem(dataKey);
+  };
+
+  async function loadUserStorageData() {
+    const userData = await AsyncStorage.getItem(dataKey);
+    if (userData) {
+      const userStorage = JSON.parse(userData) as User;
+      setUserInfo(userStorage);
+    } else {
+      GoogleSignin.configure({
+        webClientId:
+          '663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com',
+      });
+    }
+  }
+
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        '663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com',
-    });
+    loadUserStorageData();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userInfo, siginGoogle }}>
+    <AuthContext.Provider value={{ userInfo, siginGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal, Keyboard, Alert } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import * as Yup from 'yup';
@@ -19,6 +19,7 @@ import {
   CategorySelect,
 } from '../../components';
 
+import { useAuth } from '../../hooks/auth';
 import { CategorySelectScreen } from '../../screens';
 import {
   Container,
@@ -42,7 +43,8 @@ const schema = Yup.object().shape({
 });
 
 const Register = () => {
-  const dataKey = '@gofinances:transactions';
+  const { userInfo } = useAuth();
+  const dataKey = `@gofinances:transactions_user:${userInfo?.id}`;
   const [transactionType, setTransactionType] = useState('');
   const [visible, setVisible] = useState(false);
   const [category, setCategory] = useState({

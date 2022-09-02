@@ -1,6 +1,7 @@
-import React from 'react';
-import { Alert } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, Platform} from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useTheme } from 'styled-components';
 
 import { useAuth } from '../../hooks/auth';
 import {
@@ -19,13 +20,17 @@ import Google from '../../assets/google.svg';
 
 const SignIn = () => {
   const { siginGoogle } = useAuth();
+  const [isLoading, setisLoading] = useState(false);
+  const theme = useTheme();
 
   const handleSigninGoogle = async () => {
     try {
-      siginGoogle();
+      setisLoading(true);
+      return await siginGoogle();
     } catch (error) {
       console.log(error);
       Alert.alert('');
+      setisLoading(false);
     }
   };
 
@@ -43,10 +48,20 @@ const SignIn = () => {
           <SignInSocialButton
             title="Entrar com Google"
             onPress={handleSigninGoogle}
+            enabled={!isLoading}
             svg={Google}
           />
-          <SignInSocialButton title="Entrar com Apple" svg={Apple} />
+          {Platform.OS === 'ios' && (
+            <SignInSocialButton title="Entrar com Apple" svg={Apple} />
+          )}
         </FooterWrapper>
+        {isLoading && (
+          <ActivityIndicator
+            size="small"
+            color={theme.colors.primary}
+            style={{ marginTop: 15 }}
+          />
+        )}
       </Footer>
     </Container>
   );

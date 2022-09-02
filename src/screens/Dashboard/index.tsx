@@ -8,6 +8,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 import { HighLightCard, TransactionCard } from '../../components';
 import { TransactionCardProps } from '../../components/parts/TransactionCard';
+import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -44,7 +45,8 @@ const Dashboard = () => {
   const [isLoading, setisLoading] = useState(true);
   const [data, setData] = useState<DataListProps[]>([]);
   const [highLightValues, setHighLightValues] = useState<HighLightValues>();
-  const dataKey = '@gofinances:transactions';
+  const { signOut, userInfo } = useAuth();
+  const dataKey = `@gofinances:transactions_user:${userInfo?.id}`;
 
   const loadTransactions = async () => {
     // await AsyncStorage.removeItem(dataKey);
@@ -160,15 +162,15 @@ const Dashboard = () => {
               <UserInfo>
                 <Photo
                   source={{
-                    uri: 'https://avatars.githubusercontent.com/u/80060167?v=4',
+                    uri: userInfo?.photo,
                   }}
                 />
                 <User>
                   <UserGreeting>Hi,</UserGreeting>
-                  <UserName>Grasi</UserName>
+                  <UserName>{userInfo?.name}</UserName>
                 </User>
               </UserInfo>
-              <LogoutButton>
+              <LogoutButton onPress={signOut}>
                 <Icon
                   name="power-settings-new"
                   size={RFValue(18)}

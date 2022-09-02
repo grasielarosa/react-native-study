@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-native/no-inline-styles */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useCallback, useState } from 'react';
@@ -10,6 +11,7 @@ import { ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { useTheme } from 'styled-components';
+import { useAuth } from '../../hooks/auth';
 import { HistoryCard } from '../../components';
 import { categories } from '../../utils';
 import {
@@ -24,7 +26,6 @@ import {
   Month,
   LoadContainer,
 } from './styles';
-
 
 export interface TransactionDataProps {
   type: 'positive' | 'negative';
@@ -44,6 +45,7 @@ interface CategoryData {
 }
 
 const Report = () => {
+  const { userInfo } = useAuth();
   const theme = useTheme();
   const [selectDate, setSelectDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
@@ -63,7 +65,8 @@ const Report = () => {
 
   const loadData = async () => {
     setisLoading(true);
-    const dataKey = '@gofinances:transactions';
+
+    const dataKey = `@gofinances:transactions_user:${userInfo?.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
 
@@ -117,6 +120,7 @@ const Report = () => {
   useFocusEffect(
     useCallback(() => {
       loadData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectDate]),
   );
 
