@@ -22,8 +22,7 @@ const SignIn = () => {
 
   const handleSigninGoogle = async () => {
     try {
-      siginGoogle().then(() => console.log('funciona'));
-      console.log('oi');
+      siginGoogle();
     } catch (error) {
       console.log(error);
       Alert.alert('');

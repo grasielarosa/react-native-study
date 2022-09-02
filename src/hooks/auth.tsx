@@ -1,12 +1,12 @@
-import React, { createContext, ReactNode, useContext } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-
-GoogleSignin.configure({
-  webClientId:
-    '987819051962-95pdvuvdj9lb201e51svlindeo2kcrcm.apps.googleusercontent.com',
-});
-
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -16,36 +16,48 @@ interface User {
   id: string;
   name: string;
   email: string;
+  familyName?: string;
   photo?: string;
 }
 
 interface AuthContextData {
-  user: User;
+  userInfo: undefined | User;
   siginGoogle(): Promise<FirebaseAuthTypes.UserCredential>;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const user = {
-    id: 'abshgsk,ks',
-    name: 'Grasi',
-    email: 'huahuhauahu',
-  };
+  const [userInfo, setUserInfo] = useState();
 
   const siginGoogle = async () => {
     try {
-      const { idToken } = await GoogleSignin.signIn();
+      const { idToken, user } = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
+      if (idToken) {
+        setUserInfo({
+          id: user.id,
+          name: user.givenName,
+          familyName: user.familyName,
+          email: user.email,
+          photo: user.photo,
+        });
+      }
       return auth().signInWithCredential(googleCredential);
     } catch (error: any) {
       throw new Error(error);
     }
   };
 
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com',
+    });
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, siginGoogle }}>
+    <AuthContext.Provider value={{ userInfo, siginGoogle }}>
       {children}
     </AuthContext.Provider>
   );

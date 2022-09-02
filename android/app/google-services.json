@@ -1,33 +1,70 @@
 {
   "project_info": {
-    "project_number": "987819051962",
-    "project_id": "gofinance2-f01f1",
-    "storage_bucket": "gofinance2-f01f1.appspot.com"
+    "project_number": "663354818378",
+    "project_id": "gofinance-grasiela",
+    "storage_bucket": "gofinance-grasiela.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:987819051962:android:24341e6ecbfe61176e6b83",
+        "mobilesdk_app_id": "1:663354818378:android:aeb3ab49d620f1a6484bb3",
         "android_client_info": {
-          "package_name": "com.awesomeproject"
+          "package_name": "com.grasiealrosa.gofinances"
         }
       },
       "oauth_client": [
         {
-          "client_id": "987819051962-95pdvuvdj9lb201e51svlindeo2kcrcm.apps.googleusercontent.com",
+          "client_id": "663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDMZnyL_i4sZacyVTLPMPMzzK0klY3NTlw"
+          "current_key": "AIzaSyDnmGjk__s1mgy3LB7fbrnxlktT9KRT5NI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "987819051962-95pdvuvdj9lb201e51svlindeo2kcrcm.apps.googleusercontent.com",
+              "client_id": "663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663354818378:android:a3f0bba5bc7f7d0f484bb3",
+        "android_client_info": {
+          "package_name": "com.grasielarosa.gofinances"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663354818378-is7pakvdiou3kdtj0pb0et52cektcu0i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grasielarosa.gofinances",
+            "certificate_hash": "d97e432c17439111fd6a12c7c027360eca27b0b1"
+          }
+        },
+        {
+          "client_id": "663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnmGjk__s1mgy3LB7fbrnxlktT9KRT5NI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663354818378-qe50fg56q3bepj7e5lhumck5raa3765n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

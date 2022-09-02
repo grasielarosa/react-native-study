@@ -10,7 +10,7 @@ export const Routes = () => {
 
   return (
     <NavigationContainer>
-      {user ? <AppRoutes /> : <AuthRoutes />}
+      {!user ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 };
