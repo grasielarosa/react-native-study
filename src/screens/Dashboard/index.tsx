@@ -1,14 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useCallback } from 'react';
 import { ActivityIndicator } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useTheme } from 'styled-components/native';
-import { RFValue } from 'react-native-responsive-fontsize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { useTheme } from 'styled-components/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { RFValue } from 'react-native-responsive-fontsize';
 
-import { HighLightCard, TransactionCard } from '../../components';
-import { TransactionCardProps } from '../../components/parts/TransactionCard';
 import { useAuth } from '../../hooks/auth';
+import {
+  HighLightCard,
+  TransactionCard,
+  TransactionCardProps,
+} from '../../components';
 
 import {
   Container,
@@ -44,36 +48,42 @@ const Dashboard = () => {
   const theme = useTheme();
   const [isLoading, setisLoading] = useState(true);
   const [data, setData] = useState<DataListProps[]>([]);
-  const [highLightValues, setHighLightValues] = useState<HighLightValues>();
+  const [highLightValues, setHighLightValues] = useState<HighLightValues>(
+    {} as HighLightValues,
+  );
   const { signOut, userInfo } = useAuth();
-  const dataKey = `@gofinances:transactions_user:${userInfo?.id}`;
+
+  const getLastTransactionDate = (
+    collection: DataListProps[],
+    type: 'positive' | 'negative',
+  ) => {
+    const collectionFiltered = collection.filter(
+      transaction => transaction.type === type,
+    );
+
+    if (collectionFiltered.length === 0) {
+      return 0;
+    }
+    const lastTransactionAdded = new Date(
+      Math.max.apply(
+        Math,
+        collectionFiltered.map(transaction =>
+          new Date(transaction.date).getTime(),
+        ),
+      ),
+    );
+
+    return `${lastTransactionAdded.getDate()} de ${lastTransactionAdded.toLocaleString(
+      'pt-BR',
+      { month: 'long' },
+    )}`;
+  };
 
   const loadTransactions = async () => {
-    // await AsyncStorage.removeItem(dataKey);
+    const dataKey = `@gofinances:transactions_user:${userInfo?.id}`;
+    // await AsyncStorage.removeItem('@gofinances:users');
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
-
-    const getLastTransactionDate = (
-      collection: DataListProps[],
-      type: 'positive' | 'negative',
-    ) => {
-      const lastTransactionAdded = new Date(
-        Math.max.apply(
-          Math,
-          collection
-            .filter(transaction => transaction.type === type)
-            .map((transaction: DataListProps) =>
-              new Date(transaction.date).getTime(),
-            ),
-        ),
-      );
-
-      return Intl.DateTimeFormat('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-      }).format(new Date(lastTransactionAdded));
-    };
 
     let inflows = 0;
     let outflows = 0;
@@ -109,31 +119,41 @@ const Dashboard = () => {
     );
 
     setData(transactionsFormatted);
-    // const lastInflowsAdded = getLastTransactionDate(transactions, 'positive');
-    // const lastOutflowsAdded = getLastTransactionDate(transactions, 'negative');
+    const lastInflowsAdded = getLastTransactionDate(transactions, 'positive');
+    const lastOutflowsAdded = getLastTransactionDate(transactions, 'negative');
+
+    const totalInterval =
+      lastOutflowsAdded === 0 ? 'Não há transações' : `${lastOutflowsAdded}`;
 
     const total = inflows - outflows;
+
     setHighLightValues({
       totalInflows: {
         amount: inflows.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransaction: '',
+        lastTransaction:
+          lastInflowsAdded === 0
+            ? 'Não há transações'
+            : `Última entrada dia ${lastInflowsAdded}`,
       },
       totalOutflows: {
         amount: outflows.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransaction: '',
+        lastTransaction:
+          lastOutflowsAdded === 0
+            ? 'Não há transações'
+            : `Última saída dia ${lastOutflowsAdded}`,
       },
       total: {
         amount: total.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransaction: '',
+        lastTransaction: totalInterval,
       },
     });
     setisLoading(false);
@@ -153,7 +173,7 @@ const Dashboard = () => {
     <Container>
       {isLoading ? (
         <LoadContainer>
-          <ActivityIndicator color={'red'} />
+          <ActivityIndicator color={theme.colors.primary} size="large" />
         </LoadContainer>
       ) : (
         <>
@@ -166,7 +186,7 @@ const Dashboard = () => {
                   }}
                 />
                 <User>
-                  <UserGreeting>Hi,</UserGreeting>
+                  <UserGreeting>Olá,</UserGreeting>
                   <UserName>{userInfo?.name}</UserName>
                 </User>
               </UserInfo>
@@ -183,7 +203,7 @@ const Dashboard = () => {
             <HighLightCard
               title={'total'}
               amount={highLightValues.total.amount}
-              lastTransaction={'may, 7'}
+              lastTransaction={highLightValues.total.lastTransaction}
               type="total"
             />
             <HighLightCard

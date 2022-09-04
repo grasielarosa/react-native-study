@@ -4,6 +4,7 @@ export {
   HistoryCard,
   SignInSocialButton,
 } from './parts';
+export type { TransactionCardProps } from './parts';
 export {
   Input,
   Button,
