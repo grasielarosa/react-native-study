@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -11,6 +12,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 const AppRoutes = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Navigator
       screenOptions={{
@@ -26,7 +28,7 @@ const AppRoutes = () => {
         },
       }}>
       <Screen
-        name="Listagem"
+        name={t('navigation.dashboard')}
         component={Dashboard}
         options={{
           tabBarIcon: ({ size, color }) => (
@@ -35,7 +37,7 @@ const AppRoutes = () => {
         }}
       />
       <Screen
-        name="Cadastrar"
+        name={t('navigation.add')}
         component={Register}
         options={{
           tabBarIcon: ({ size, color }) => (
@@ -44,7 +46,7 @@ const AppRoutes = () => {
         }}
       />
       <Screen
-        name="Relatórios"
+        name={t('navigation.reports')}
         component={Report}
         options={{
           tabBarIcon: ({ size, color }) => (

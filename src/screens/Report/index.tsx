@@ -9,6 +9,7 @@ import { addMonths, subMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/auth';
@@ -47,6 +48,7 @@ interface CategoryData {
 const Report = () => {
   const { userInfo } = useAuth();
   const theme = useTheme();
+  const { t } = useTranslation();
   const [selectDate, setSelectDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     [],
@@ -127,7 +129,7 @@ const Report = () => {
   return (
     <Container>
       <Header>
-        <Title>Resumos por Categoria</Title>
+        <Title>{t('report.title')}</Title>
       </Header>
       {isLoading ? (
         <LoadContainer>
@@ -168,7 +170,7 @@ const Report = () => {
           {totalByCategories.map(item => (
             <HistoryCard
               key={item.key}
-              title={item.name}
+              title={`${t(item.name)}`}
               amount={item.totalFormatted}
               color={item.color}
             />

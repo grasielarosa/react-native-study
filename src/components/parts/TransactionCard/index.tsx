@@ -1,5 +1,6 @@
 import React from 'react';
 import { categories } from '../../../utils';
+import { useTranslation } from 'react-i18next';
 
 import {
   Container,
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const TransactionCard = ({ data }: Props) => {
+  const { t } = useTranslation();
   const [category] = categories.filter(item => item.key === data.category);
   return (
     <Container>
@@ -36,7 +38,7 @@ const TransactionCard = ({ data }: Props) => {
       <Footer>
         <Category>
           <IconStyled name={category.icon} />
-          <CategoryName>{category.name}</CategoryName>
+          <CategoryName>{t(`${category.name}`)}</CategoryName>
         </Category>
         <Date>{data.date}</Date>
       </Footer>

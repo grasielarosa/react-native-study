@@ -6,6 +6,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../hooks/auth';
 import {
@@ -30,7 +31,6 @@ import {
   LogoutButton,
   LoadContainer,
 } from './styles';
-
 export interface DataListProps extends TransactionCardProps {
   id: number;
 }
@@ -46,6 +46,7 @@ interface HighLightValues {
 
 const Dashboard = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [isLoading, setisLoading] = useState(true);
   const [data, setData] = useState<DataListProps[]>([]);
   const [highLightValues, setHighLightValues] = useState<HighLightValues>(
@@ -123,7 +124,9 @@ const Dashboard = () => {
     const lastOutflowsAdded = getLastTransactionDate(transactions, 'negative');
 
     const totalInterval =
-      lastOutflowsAdded === 0 ? 'Não há transações' : `${lastOutflowsAdded}`;
+      lastOutflowsAdded === 0
+        ? t('dashboard.noTransactions')
+        : `${lastOutflowsAdded}`;
 
     const total = inflows - outflows;
 
@@ -135,8 +138,8 @@ const Dashboard = () => {
         }),
         lastTransaction:
           lastInflowsAdded === 0
-            ? 'Não há transações'
-            : `Última entrada dia ${lastInflowsAdded}`,
+            ? t('dashboard.noTransactions')
+            : `${t('dashboard.lastIncome')} ${lastInflowsAdded}`,
       },
       totalOutflows: {
         amount: outflows.toLocaleString('pt-BR', {
@@ -145,8 +148,8 @@ const Dashboard = () => {
         }),
         lastTransaction:
           lastOutflowsAdded === 0
-            ? 'Não há transações'
-            : `Última saída dia ${lastOutflowsAdded}`,
+            ? t('dashboard.noTransactions')
+            : `${t('dashboard.lastOutcome')} ${lastOutflowsAdded}`,
       },
       total: {
         amount: total.toLocaleString('pt-BR', {
@@ -186,7 +189,7 @@ const Dashboard = () => {
                   }}
                 />
                 <User>
-                  <UserGreeting>Olá,</UserGreeting>
+                  <UserGreeting>{t('dashboard.greeting')}</UserGreeting>
                   <UserName>{userInfo?.name}</UserName>
                 </User>
               </UserInfo>
@@ -201,26 +204,26 @@ const Dashboard = () => {
           </Header>
           <HighLightCards>
             <HighLightCard
-              title={'total'}
+              title={t('dashboard.total')}
               amount={highLightValues.total.amount}
               lastTransaction={highLightValues.total.lastTransaction}
               type="total"
             />
             <HighLightCard
-              title={'Entradas'}
+              title={t('dashboard.incomes')}
               amount={highLightValues.totalInflows.amount}
               lastTransaction={highLightValues.totalInflows.lastTransaction}
               type="positive"
             />
             <HighLightCard
-              title={'Saídas'}
+              title={t('dashboard.outcomes')}
               amount={highLightValues.totalOutflows.amount}
               lastTransaction={highLightValues.totalOutflows.lastTransaction}
               type="negative"
             />
           </HighLightCards>
           <Transactions>
-            <TitleList>Listagem</TitleList>
+            <TitleList>{t('dashboard.list')}</TitleList>
             <TransactionList<DataListProps>
               data={data}
               keyExtractor={item => item.id}

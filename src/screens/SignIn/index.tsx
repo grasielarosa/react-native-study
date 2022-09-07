@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, Platform} from 'react-native';
+import { ActivityIndicator, Alert, Platform } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '../../hooks/auth';
 import {
@@ -22,6 +23,7 @@ const SignIn = () => {
   const { siginGoogle } = useAuth();
   const [isLoading, setisLoading] = useState(false);
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const handleSigninGoogle = async () => {
     try {
@@ -39,20 +41,20 @@ const SignIn = () => {
       <Header>
         <TitleWrapper>
           <Logo width={RFValue(120)} height={RFValue(68)} />
-          <Title>Controle suas finanças de forma muito simples</Title>
+          <Title>{t('signin.title')}</Title>
         </TitleWrapper>
-        <SignInTitle>Faça seu login com uma das contas abaixo</SignInTitle>
+        <SignInTitle>{t('signin.subtitle')}</SignInTitle>
       </Header>
       <Footer>
         <FooterWrapper>
           <SignInSocialButton
-            title="Entrar com Google"
+            title={t('signin.buttonGoogle')}
             onPress={handleSigninGoogle}
             enabled={!isLoading}
             svg={Google}
           />
           {Platform.OS === 'ios' && (
-            <SignInSocialButton title="Entrar com Apple" svg={Apple} />
+            <SignInSocialButton title={t('signin.buttonApple')} svg={Apple} />
           )}
         </FooterWrapper>
         {isLoading && (

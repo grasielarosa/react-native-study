@@ -1,5 +1,6 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
   Amount,
   Container,
@@ -24,6 +25,7 @@ const icon = {
 };
 
 const HighLightCard = ({ amount, title, type, lastTransaction }: Props) => {
+  const { t } = useTranslation();
   return (
     <Container type={type}>
       <Header>
@@ -32,7 +34,9 @@ const HighLightCard = ({ amount, title, type, lastTransaction }: Props) => {
       </Header>
       <Footer>
         <Amount>{amount}</Amount>
-        <LastTransaction>last transaction: {lastTransaction}</LastTransaction>
+        <LastTransaction>
+          {t('highLightCard.message')} {lastTransaction}
+        </LastTransaction>
       </Footer>
     </Container>
   );

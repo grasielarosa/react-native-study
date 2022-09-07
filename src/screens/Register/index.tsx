@@ -11,6 +11,7 @@ import {
   NavigationProp,
   ParamListBase,
 } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import {
   InputForm,
@@ -35,24 +36,24 @@ interface FormData {
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('campo nome é obrigatório'),
+  name: Yup.string().required('register.schema.fieldName'),
   amount: Yup.number()
-    .typeError('informe um valor numérico')
-    .positive('o valor não pode ser negatiovo')
-    .required('campo preço é obrigatório'),
+    .typeError('register.schema.fieldNumber')
+    .positive('register.schema.fieldValue')
+    .required('register.schema.fieldPrice'),
 });
 
 const Register = () => {
   const { userInfo } = useAuth();
+  const { t } = useTranslation();
   const dataKey = `@gofinances:transactions_user:${userInfo?.id}`;
   const [transactionType, setTransactionType] = useState('');
   const [visible, setVisible] = useState(false);
   const [category, setCategory] = useState({
     key: 'category',
-    name: 'Categoria',
+    name: t('category'),
   });
 
-  // const navigation = useNavigation();
   const { navigate }: NavigationProp<ParamListBase> = useNavigation();
 
   const {
@@ -66,10 +67,10 @@ const Register = () => {
 
   const handleRegister = async (form: FormData) => {
     if (!transactionType) {
-      return Alert.alert('Selecione o tipo da transação');
+      return Alert.alert(t('register.typeAlert'));
     }
     if (category.key === 'category') {
-      return Alert.alert('Selecione uma categoria');
+      return Alert.alert(t('register.categoryAlert'));
     }
 
     const newTransaction = {
@@ -85,31 +86,22 @@ const Register = () => {
       const getData = await AsyncStorage.getItem(dataKey);
       const currentData = getData ? JSON.parse(getData) : [];
       const dataFormatted = [newTransaction, ...currentData];
-
+      // await AsyncStorage.removeItem(dataKey);
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
 
       reset();
       setTransactionType('');
       setCategory({
         key: 'category',
-        name: 'Categoria',
+        name: t('category'),
       });
 
-      navigate('Listagem');
+      navigate(t('navigation.dashboard'));
     } catch (error) {
       console.error('screen:Register\nmethod:HandleRegister\nerror', error);
-      Alert.alert('Não foi possível salvar esta transação.');
+      Alert.alert(t('register.errorAlert'));
     }
   };
-
-  // useEffect(() => {
-  //   // loadTransactions();
-  //   const remove = async () => {
-  //     await AsyncStorage.removeItem(dataKey);
-
-  //   };
-  //   remove();
-  // }, []);
 
   return (
     <TouchableWithoutFeedback
@@ -118,44 +110,47 @@ const Register = () => {
       style={{ flex: 1 }}>
       <Container>
         <Header>
-          <Title>Cadastro</Title>
+          <Title>{t('register.title')}</Title>
         </Header>
         <Form>
           <Fields>
             <InputForm
               control={control}
               name="name"
-              placeholder="nome"
+              placeholder={t('register.input.name')}
               autoCorrect={false}
-              error={errors?.name && errors?.name.message}
+              error={errors?.name && t(`${errors?.name.message}`)}
             />
             <InputForm
               control={control}
               name="amount"
-              placeholder="preço"
+              placeholder={t('register.input.amount')}
               keyboardType="numeric"
-              error={errors?.amount && errors?.amount.message}
+              error={errors?.amount && t(`${errors?.amount.message}`)}
             />
             <TransactionType>
               <TransactionTypeButton
-                title="income"
+                title={t('register.income')}
                 type="up"
                 onPress={() => setTransactionType('positive')}
                 isActive={transactionType === 'positive'}
               />
               <TransactionTypeButton
-                title="outcome"
+                title={t('register.outcome')}
                 type="down"
                 onPress={() => setTransactionType('negative')}
                 isActive={transactionType === 'negative'}
               />
             </TransactionType>
             <CategorySelect
-              title={category.name}
+              title={`${t(category.name)}`}
               onPress={() => setVisible(true)}
             />
           </Fields>
-          <Button title="enviar" onPress={handleSubmit(handleRegister)} />
+          <Button
+            title={t('register.button')}
+            onPress={handleSubmit(handleRegister)}
+          />
         </Form>
 
         <Modal visible={visible}>

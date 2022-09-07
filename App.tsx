@@ -5,6 +5,7 @@ import { StatusBar } from 'react-native';
 import React from 'react';
 import { Routes } from './src/routes';
 import { ThemeProvider } from 'styled-components/native';
+import './i118n';
 
 import { AuthProvider } from './src/hooks/auth';
 import theme from './src/global/styles/theme';
