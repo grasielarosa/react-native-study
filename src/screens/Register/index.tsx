@@ -108,13 +108,14 @@ const Register = () => {
       onPress={Keyboard.dismiss}
       containerStyle={{ flex: 1 }}
       style={{ flex: 1 }}>
-      <Container>
+      <Container testID="register-screen">
         <Header>
           <Title>{t('register.title')}</Title>
         </Header>
         <Form>
           <Fields>
             <InputForm
+              testID="input-name"
               control={control}
               name="name"
               placeholder={t('register.input.name')}
@@ -122,6 +123,7 @@ const Register = () => {
               error={errors?.name && t(`${errors?.name.message}`)}
             />
             <InputForm
+              testID="input-amount"
               control={control}
               name="amount"
               placeholder={t('register.input.amount')}
@@ -130,12 +132,14 @@ const Register = () => {
             />
             <TransactionType>
               <TransactionTypeButton
+                testID="income-button"
                 title={t('register.income')}
                 type="up"
                 onPress={() => setTransactionType('positive')}
                 isActive={transactionType === 'positive'}
               />
               <TransactionTypeButton
+                testID="outcome-button"
                 title={t('register.outcome')}
                 type="down"
                 onPress={() => setTransactionType('negative')}
@@ -143,11 +147,13 @@ const Register = () => {
               />
             </TransactionType>
             <CategorySelect
+              testID="category-select"
               title={`${t(category.name)}`}
               onPress={() => setVisible(true)}
             />
           </Fields>
           <Button
+            testID="register-button"
             title={t('register.button')}
             onPress={handleSubmit(handleRegister)}
           />
@@ -155,6 +161,7 @@ const Register = () => {
 
         <Modal visible={visible}>
           <CategorySelectScreen
+            testID="categories-modal"
             category={category}
             setCategory={setCategory}
             closeSelectCategory={() => setVisible(false)}

@@ -37,7 +37,7 @@ const SignIn = () => {
   };
 
   return (
-    <Container>
+    <Container testID="login-screen">
       <Header>
         <TitleWrapper>
           <Logo width={RFValue(120)} height={RFValue(68)} />
@@ -48,6 +48,7 @@ const SignIn = () => {
       <Footer>
         <FooterWrapper>
           <SignInSocialButton
+            testID="login-button"
             title={t('signin.buttonGoogle')}
             onPress={handleSigninGoogle}
             enabled={!isLoading}

@@ -21,6 +21,7 @@ interface User {
 
 interface AuthContextData {
   userInfo: undefined | User;
+  setUserInfo: (arg: any) => void;
   siginGoogle(): Promise<FirebaseAuthTypes.UserCredential>;
   signOut(): Promise<void>;
 }
@@ -75,7 +76,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userInfo, siginGoogle, signOut }}>
+    <AuthContext.Provider
+      value={{ userInfo, setUserInfo, siginGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );

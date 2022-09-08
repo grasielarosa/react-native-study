@@ -173,7 +173,7 @@ const Dashboard = () => {
   );
 
   return (
-    <Container>
+    <Container testID="dashboard-screen">
       {isLoading ? (
         <LoadContainer>
           <ActivityIndicator color={theme.colors.primary} size="large" />
@@ -193,7 +193,7 @@ const Dashboard = () => {
                   <UserName>{userInfo?.name}</UserName>
                 </User>
               </UserInfo>
-              <LogoutButton onPress={signOut}>
+              <LogoutButton onPress={signOut} testID="logout-button">
                 <Icon
                   name="power-settings-new"
                   size={RFValue(18)}
@@ -202,7 +202,7 @@ const Dashboard = () => {
               </LogoutButton>
             </UserWrapper>
           </Header>
-          <HighLightCards>
+          <HighLightCards testID="dashboard-cards">
             <HighLightCard
               title={t('dashboard.total')}
               amount={highLightValues.total.amount}

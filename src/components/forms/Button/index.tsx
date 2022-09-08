@@ -1,17 +1,25 @@
 import React from 'react';
-import { RectButtonProps } from 'react-native-gesture-handler';
+import { RawButtonProps, RectButtonProps } from 'react-native-gesture-handler';
 
 import { Container, Title } from './styles';
 
 interface Props extends RectButtonProps {
   title: string;
   onPress: () => void;
+  testID: string;
+  // accessibilityLabel?: string;
 }
 
-const Button = ({ title, onPress, ...rest }: Props) => {
+const Button = ({
+  title,
+  onPress,
+  // accessibilityLabel,
+  testID,
+  ...rest
+}: Props) => {
   return (
     <Container onPress={onPress} {...rest}>
-      <Title>{title}</Title>
+      <Title testID={testID}>{title}</Title>
     </Container>
   );
 };

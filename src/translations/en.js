@@ -40,7 +40,7 @@ export default {
   },
   categorySelect: {
     title: 'Categories',
-    button: 'Select',
+    button: 'select',
   },
   highLightCard: {
     message: 'Last transaction: ',

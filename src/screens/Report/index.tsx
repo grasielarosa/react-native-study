@@ -127,7 +127,7 @@ const Report = () => {
   );
 
   return (
-    <Container>
+    <Container testID="report-screen">
       <Header>
         <Title>{t('report.title')}</Title>
       </Header>

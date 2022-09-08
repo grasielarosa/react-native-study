@@ -31,6 +31,7 @@ const AppRoutes = () => {
         name={t('navigation.dashboard')}
         component={Dashboard}
         options={{
+          tabBarTestID: 'menu-dashboard',
           tabBarIcon: ({ size, color }) => (
             <Icon name="format-list-bulleted" size={size} color={color} />
           ),
@@ -40,6 +41,7 @@ const AppRoutes = () => {
         name={t('navigation.add')}
         component={Register}
         options={{
+          tabBarTestID: 'menu-register',
           tabBarIcon: ({ size, color }) => (
             <Icon name="attach-money" size={size} color={color} />
           ),
@@ -49,6 +51,7 @@ const AppRoutes = () => {
         name={t('navigation.reports')}
         component={Report}
         options={{
+          tabBarTestID: 'menu-reports',
           tabBarIcon: ({ size, color }) => (
             <Icon name="pie-chart" size={size} color={color} />
           ),

@@ -24,14 +24,15 @@ interface Props {
   category: Category;
   setCategory: (category: Category) => void;
   closeSelectCategory: () => void;
+  testID: string;
 }
 
 const CategorySelectScreen = gestureHandlerRootHOC(
-  ({ category, closeSelectCategory, setCategory }: Props) => {
+  ({ category, closeSelectCategory, setCategory, testID }: Props) => {
     const { t } = useTranslation();
 
     return (
-      <Container>
+      <Container testID={testID}>
         <Header>
           <Title>{t('categorySelect.title')}</Title>
         </Header>
@@ -42,6 +43,7 @@ const CategorySelectScreen = gestureHandlerRootHOC(
           renderItem={({ item }) => (
             <Category
               onPress={() => setCategory(item)}
+              testID={item.key}
               isActive={category.key === item.key}>
               <IconStyled name={item.icon} />
               <Name>{t(`${item.name}`)}</Name>
@@ -53,6 +55,7 @@ const CategorySelectScreen = gestureHandlerRootHOC(
           <Button
             title={t('categorySelect.button')}
             onPress={closeSelectCategory}
+            testID="category-select-button"
           />
         </Footer>
       </Container>
