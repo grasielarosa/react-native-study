@@ -6,11 +6,12 @@ interface Props {
   title: string;
   amount: string;
   color: string;
+  testID: string;
 }
 
-const HistoryCard = ({ title, amount, color }: Props) => {
+const HistoryCard = ({ title, amount, color, testID }: Props) => {
   return (
-    <Container color={color}>
+    <Container color={color} testID={testID}>
       <Title>{title}</Title>
       <Amount>{amount}</Amount>
     </Container>

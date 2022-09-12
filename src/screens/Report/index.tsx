@@ -167,8 +167,9 @@ const Report = () => {
               labelRadius={50}
             />
           </ChartContainer>
-          {totalByCategories.map(item => (
+          {totalByCategories.map((item, index) => (
             <HistoryCard
+              testID={`transaction-${index}`}
               key={item.key}
               title={`${t(item.name)}`}
               amount={item.totalFormatted}

@@ -13,7 +13,7 @@ interface TestProps {
 export const Routes = (props: TestProps) => {
   const { userInfo, setUserInfo } = useAuth();
 
-  if (props) {
+  if (props.testing) {
     Alert.alert(
       'should testing logged?',
       '',

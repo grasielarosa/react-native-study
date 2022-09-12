@@ -85,7 +85,6 @@ const Dashboard = () => {
     // await AsyncStorage.removeItem('@gofinances:users');
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
-
     let inflows = 0;
     let outflows = 0;
 
@@ -225,9 +224,12 @@ const Dashboard = () => {
           <Transactions>
             <TitleList>{t('dashboard.list')}</TitleList>
             <TransactionList<DataListProps>
+              testID="transaction-list"
               data={data}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => <TransactionCard data={item} />}
+              renderItem={({ item, index }) => (
+                <TransactionCard data={item} testID={`transaction-${index}`} />
+              )}
             />
           </Transactions>
         </>

@@ -23,13 +23,14 @@ export interface TransactionCardProps {
 
 interface Props {
   data: TransactionCardProps;
+  testID: string;
 }
 
-const TransactionCard = ({ data }: Props) => {
+const TransactionCard = ({ data, testID }: Props) => {
   const { t } = useTranslation();
   const [category] = categories.filter(item => item.key === data.category);
   return (
-    <Container>
+    <Container testID={testID}>
       <Title>{data.name}</Title>
       <Amount type={data.type}>
         {data.type === 'negative' && '- '}
