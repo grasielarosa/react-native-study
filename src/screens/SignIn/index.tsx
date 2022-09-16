@@ -54,9 +54,9 @@ const SignIn = () => {
             enabled={!isLoading}
             svg={Google}
           />
-          {Platform.OS === 'ios' && (
-            <SignInSocialButton title={t('signin.buttonApple')} svg={Apple} />
-          )}
+          {/* {Platform.OS === 'ios' && ( */}
+          <SignInSocialButton title={t('signin.buttonApple')} svg={Apple} />
+          {/* )} */}
         </FooterWrapper>
         {isLoading && (
           <ActivityIndicator
